@@ -15,7 +15,7 @@ package de.leuphana.das.order.client;
  * ---------------------------------------------------------
  */
 
-import de.leuphana.das.order.web.dto.CustomerDto;
+import de.leuphana.das.order.web.dto.OrderDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,5 +24,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface CustomerClient {
 
     @GetMapping("/customers/{id}")
-    CustomerDto getCustomerById(@PathVariable("id") Long id);
+    OrderDto getCustomerById(@PathVariable("id") Long id);
 }

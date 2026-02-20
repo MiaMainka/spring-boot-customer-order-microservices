@@ -15,14 +15,14 @@ package de.leuphana.das.order.web.dto;
  * ---------------------------------------------------------
  */
 
-public class CustomerDto {
+public class OrderDto {
 
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public CustomerDto() {
+    public OrderDto() {
     }
 
     public Long getId() {
