@@ -48,7 +48,7 @@ flowchart LR
   O --> R
   G --> R
   O -->|OpenFeign REST call| C
-
+``` 
 Ports
 * Eureka Registry: 8761
 * API Gateway: 8080
