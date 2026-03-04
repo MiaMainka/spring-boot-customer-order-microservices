@@ -169,7 +169,8 @@ FLUSH PRIVILEGES;
 Hinweis: Falls der User shop bereits existiert, ist das unproblematisch. Das Skript verwendet IF NOT EXISTS.
 
 
-Autorin
+## Autorin
 
 Mia Mainka
+
 Matrikelnummer 3047072
