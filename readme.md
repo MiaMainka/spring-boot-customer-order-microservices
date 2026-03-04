@@ -1,30 +1,30 @@
 # Customer Order Microservices
 
-Dieses Repository enthält ein Microservices System mit zwei fachlichen Services (Customer und Order) sowie technischer Infrastruktur (Service Registry und API Gateway).
+Dieses Repository enthÃ¤lt ein Microservices System mit zwei fachlichen Services (Customer und Order) sowie technischer Infrastruktur (Service Registry und API Gateway).
 
-Das Projekt wurde im Rahmen des Seminars **Verteilte Anwendungssysteme** an der **Leuphana Universität Lüneburg** im **WS 2025/26** (Dozent: Thomas Slotos) umgesetzt. Die Umsetzung orientiert sich am in der Veranstaltung besprochenen Shop Monolith und überführt die fachlichen Bereiche Customer und Order in eigenständige Microservices.
+Das Projekt wurde im Rahmen des Seminars **Verteilte Anwendungssysteme** an der **Leuphana UniversitÃ¤t LÃ¼neburg** im **WS 2025/26** (Dozent: Thomas Slotos) umgesetzt. Die Umsetzung orientiert sich am in der Veranstaltung besprochenen Shop Monolith und Ã¼berfÃ¼hrt die fachlichen Bereiche Customer und Order in eigenstÃ¤ndige Microservices.
 
-## Überblick
+## Ãœberblick
 
 ### Services
 
 - `service-registry`  
-  Eureka Service Registry für Service Discovery
+  Eureka Service Registry fÃ¼r Service Discovery
 
 - `api-gateway`  
   Spring Cloud Gateway als technischer Einstiegspunkt und Router
 
 - `customer-service`  
-  REST API und relationale Persistenz für Kunden
+  REST API und relationale Persistenz fÃ¼r Kunden
 
 - `order-service`  
-  REST API und relationale Persistenz für Bestellungen. Die Beziehung zum Customer Service wird über REST (OpenFeign) geprüft.
+  REST API und relationale Persistenz fÃ¼r Bestellungen. Die Beziehung zum Customer Service wird Ã¼ber REST (OpenFeign) geprÃ¼ft.
 
 ### Beziehung zwischen Customer und Order
 
-- Eine Order referenziert einen Customer ausschließlich über `customerId`
-- Der Order Service prüft die Existenz des Kunden über einen REST Aufruf an den Customer Service
-- Es gibt keine serviceübergreifenden Foreign Keys in der Datenbank
+- Eine Order referenziert einen Customer ausschlieÃŸlich Ã¼ber `customerId`
+- Der Order Service prÃ¼ft die Existenz des Kunden Ã¼ber einen REST Aufruf an den Customer Service
+- Es gibt keine serviceÃ¼bergreifenden Foreign Keys in der Datenbank
 
 ## Tech Stack
 
@@ -32,7 +32,7 @@ Das Projekt wurde im Rahmen des Seminars **Verteilte Anwendungssysteme** an der 
 - Spring Boot 3.2.12
 - Spring Cloud 2023.0.5
 - Spring Data JPA
-- MariaDB (lokal über XAMPP)
+- MariaDB (lokal Ã¼ber XAMPP)
 - Maven
 
 ## Architektur
@@ -62,17 +62,18 @@ Order Service: 8082
 
 *Lokales Setup*
 
-1. Datenbank starten
+##1. Datenbank starten##
 
-Dieses Projekt nutzt MariaDB über XAMPP.
+Dieses Projekt nutzt MariaDB Ã¼ber XAMPP.
 
-XAMPP öffnen
+XAMPP Ã¶ffnen
 
 Datenbankdienst starten
 
-phpMyAdmin öffnen
+phpMyAdmin Ã¶ffnen
 
-2. Datenbanken und Rechte initialisieren
+
+##2. Datenbanken und Rechte initialisieren##
 
 Im Repository Root einen Ordner anlegen:
 
@@ -82,11 +83,12 @@ Darin die Datei anlegen:
 
 db/init.sql
 
-Anschließend in phpMyAdmin ausführen:
+AnschlieÃŸend in phpMyAdmin ausfÃ¼hren:
 
-Tab SQL öffnen
+Tab SQL Ã¶ffnen
 
-Inhalt von db/init.sql ausführen
+Inhalt von db/init.sql ausfÃ¼hren
+
 
 Ergebnis:
 
@@ -94,7 +96,8 @@ Datenbanken customer_db und order_db existieren
 
 User shop hat Zugriff auf beide Datenbanken
 
-3. Services starten
+
+##3. Services starten##
 
 Startreihenfolge:
 
@@ -118,35 +121,38 @@ CUSTOMER-SERVICE
 
 ORDER-SERVICE
 
-4. Test und Demonstration
 
-Im Seminar war keine GUI erforderlich. Der Ablauf wird über einen Integrationstest demonstriert.
+##4. Test und Demonstration##
+
+Im Seminar war keine GUI erforderlich. Der Ablauf wird Ã¼ber einen Integrationstest demonstriert.
 
 Testidee:
 
 Customer anlegen
 
-Order für diesen Customer anlegen
+Order fÃ¼r diesen Customer anlegen
 
-Prüfen, dass der Order Service die Customer Beziehung über REST auflöst
+PrÃ¼fen, dass der Order Service die Customer Beziehung Ã¼ber REST auflÃ¶st
 
-Test ausführen:
+
+Test ausfÃ¼hren:
 
 Alle Services laufen lassen
 
 In Eclipse im order-service die Klasse OrderServiceApplicationTests als JUnit Test starten
 
-Hinweise für Reviewer
+Hinweise fÃ¼r Reviewer
 
-Wenn Sie nur einen Teil des Systems starten möchten:
+Wenn Sie nur einen Teil des Systems starten mÃ¶chten:
 
 Die Registry muss laufen, wenn sich Services registrieren sollen
 
-Customer und Order lassen sich auch direkt über ihre Ports ansprechen
+Customer und Order lassen sich auch direkt Ã¼ber ihre Ports ansprechen
 
-Das Gateway ist für Routing gedacht, aber für den JUnit Test nicht zwingend erforderlich
+Das Gateway ist fÃ¼r Routing gedacht, aber fÃ¼r den JUnit Test nicht zwingend erforderlich
 
-SQL Initialisierung
+
+##SQL Initialisierung##
 
 Datei: db/init.sql
 
@@ -161,6 +167,7 @@ GRANT ALL PRIVILEGES ON order_db.* TO 'shop'@'localhost';
 FLUSH PRIVILEGES;
 
 Hinweis: Falls der User shop bereits existiert, ist das unproblematisch. Das Skript verwendet IF NOT EXISTS.
+
 
 Autorin
 
