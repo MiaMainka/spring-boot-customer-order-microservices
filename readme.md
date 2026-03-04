@@ -62,7 +62,7 @@ Order Service: 8082
 
 *Lokales Setup*
 
-##1. Datenbank starten
+## 1. Datenbank starten
 
 Dieses Projekt nutzt MariaDB über XAMPP.
 
@@ -73,7 +73,7 @@ Datenbankdienst starten
 phpMyAdmin öffnen
 
 
-##2. Datenbanken und Rechte initialisieren
+## 2. Datenbanken und Rechte initialisieren
 
 Im Repository Root einen Ordner anlegen:
 
@@ -97,7 +97,7 @@ Datenbanken customer_db und order_db existieren
 User shop hat Zugriff auf beide Datenbanken
 
 
-##3. Services starten
+## 3. Services starten
 
 Startreihenfolge:
 
@@ -122,7 +122,7 @@ CUSTOMER-SERVICE
 ORDER-SERVICE
 
 
-##4. Test und Demonstration
+## 4. Test und Demonstration
 
 Im Seminar war keine GUI erforderlich. Der Ablauf wird über einen Integrationstest demonstriert.
 
@@ -152,7 +152,7 @@ Customer und Order lassen sich auch direkt über ihre Ports ansprechen
 Das Gateway ist für Routing gedacht, aber für den JUnit Test nicht zwingend erforderlich
 
 
-##SQL Initialisierung
+## SQL Initialisierung
 
 Datei: db/init.sql
 
