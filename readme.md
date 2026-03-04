@@ -59,28 +59,9 @@ Customer Service: 8081
 
 Order Service: 8082
 
-API Endpunkte
-Customer Service
 
-POST /customers
+*Lokales Setup*
 
-GET /customers
-
-GET /customers/{id}
-
-Order Service
-
-POST /orders
-
-GET /orders
-
-GET /orders/{id}
-
-GET /orders/by-customer/{customerId}
-
-Hinweis: Beim POST /orders ruft der Order Service den Customer Service auf, um die Existenz des referenzierten Customers zu prüfen.
-
-Lokales Setup
 1. Datenbank starten
 
 Dieses Projekt nutzt MariaDB über XAMPP.
