@@ -11,10 +11,12 @@ package de.leuphana.das.order.client;
  * Interface:       CustomerClient
  *
  * Beschreibung:
- * Feign Client für REST Aufrufe an den Customer Service über Service Discovery.
+ * Feign Client Interface für REST Aufrufe an den Customer Service.
+ * Der Name entspricht dem spring.application.name des Customer Service und damit dem Eureka Service Namen.
+ *
+ * Feign als deklarativer REST Client und Service Discovery über Eureka
  * ---------------------------------------------------------
  */
-
 import de.leuphana.das.order.web.dto.OrderDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

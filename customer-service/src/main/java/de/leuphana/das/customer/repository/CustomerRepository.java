@@ -11,14 +11,11 @@ package de.leuphana.das.customer.repository;
  * Interface:       CustomerRepository
  *
  * Beschreibung:
- * Repository für Customer Entitäten.
- * Stellt CRUD Operationen über Spring Data JPA bereit.
+ * Spring Data JPA Repository als Interface.
+ * Spring erzeugt die Implementierung zur Laufzeit automatisch.
  *
- * Technische Details:
- * - Java 17
- * - Spring Boot 3.2.12
- * - Spring Data JPA
- * - MariaDB
+ * 
+ * Repository Pattern und Spring Data JPA
  * ---------------------------------------------------------
  */
 
@@ -29,6 +26,6 @@ import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    // Spring erzeugt automatisch eine Query basierend auf dem Methodennamen.
+    // Derived Query Method, Spring leitet die Query aus dem Methodennamen ab
     Optional<Customer> findByEmail(String email);
 }

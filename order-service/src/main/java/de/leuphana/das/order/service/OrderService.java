@@ -11,8 +11,10 @@ package de.leuphana.das.order.service;
  * Klasse:          OrderService
  *
  * Beschreibung:
- * Service Logik für Bestellungen.
- * Prüft vor dem Speichern, ob der referenzierte Customer existiert.
+ * Geschäftslogik für Orders.
+ * Vor dem Speichern wird der Customer Service per REST aufgerufen, um die Existenz zu prüfen.
+ *
+ * REST Beziehung zwischen fachlichen Microservices
  * ---------------------------------------------------------
  */
 
@@ -35,7 +37,7 @@ public class OrderService {
     }
 
     public Order create(Order order) {
-        // Customer Existenz prüfen über REST Call
+        // zentrale Stelle der Service Beziehung: Order ruft Customer über REST auf
         customerClient.getCustomerById(order.getCustomerId());
 
         return repository.save(order);

@@ -11,14 +11,10 @@ package de.leuphana.das.order.repository;
  * Interface:       OrderRepository
  *
  * Beschreibung:
- * Repository für Order Entitäten.
- * CRUD Operationen über Spring Data JPA.
+ * Spring Data JPA Repository für Orders.
+ * Die Implementierung wird von Spring automatisch erzeugt.
  *
- * Technische Details
- * - Java 17
- * - Spring Boot 3.2.12
- * - Spring Data JPA
- * - MariaDB
+ * Repository Interface und Query Ableitung
  * ---------------------------------------------------------
  */
 
@@ -29,6 +25,6 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    // Alle Bestellungen zu einem Customer
+    // Query wird aus dem Methodennamen abgeleitet
     List<Order> findByCustomerId(Long customerId);
 }

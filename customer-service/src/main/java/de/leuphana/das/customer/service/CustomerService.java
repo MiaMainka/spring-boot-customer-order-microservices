@@ -11,13 +11,11 @@ package de.leuphana.das.customer.service;
  * Klasse:          CustomerService
  *
  * Beschreibung:
- * Service-Komponente zur Kapselung der Geschäftslogik im Customer Microservice.
- * Enthält Operationen zum Anlegen und Auslesen von Kunden und nutzt dafür das Repository.
+ * Enthält die Geschäftslogik für Customer.
+ * Controller delegiert an diese Schicht statt direkt an das Repository.
  *
- * Technische Details
- * - Java 17
- * - Spring Boot 3.2.12
- * - Spring Data JPA
+ * 
+ * Trennung Controller Service Repository
  * ---------------------------------------------------------
  */
 
@@ -27,19 +25,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-// @Service registriert die Klasse als Spring Bean (Business-Schicht).
+@Service // Business Schicht als Spring Bean
 public class CustomerService {
 
     private final CustomerRepository repository;
 
-    // Constructor Injection macht die Abhängigkeit eindeutig.
+    // Constructor Injection ist bewusst gewählt, da Abhängigkeiten klar sind
     public CustomerService(CustomerRepository repository) {
         this.repository = repository;
     }
 
     public Customer create(Customer customer) {
-        // Email soll eindeutig sein (zusätzlich zur DB-Constraint).
+        // einfache Business Regel, vor DB Unique Constraint schon prüfen
         repository.findByEmail(customer.getEmail()).ifPresent(existing -> {
             throw new IllegalArgumentException("Customer with this email already exists");
         });

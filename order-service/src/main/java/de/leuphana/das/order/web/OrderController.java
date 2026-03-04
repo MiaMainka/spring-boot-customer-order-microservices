@@ -11,7 +11,10 @@ package de.leuphana.das.order.web;
  * Klasse:          OrderController
  *
  * Beschreibung:
- * REST Endpunkte für Bestellungen.
+ * REST API des Order Service.
+ * Nimmt HTTP Requests entgegen und delegiert an OrderService.
+ *
+ * REST Endpunkte für fachlichen Service
  * ---------------------------------------------------------
  */
 
@@ -34,6 +37,7 @@ public class OrderController {
 
     @PostMapping
     public Order create(@RequestBody @Valid Order order) {
+        // @Valid nutzt Validierungsregeln aus der Entity
         return service.create(order);
     }
 

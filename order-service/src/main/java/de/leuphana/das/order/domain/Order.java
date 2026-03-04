@@ -11,14 +11,10 @@ package de.leuphana.das.order.domain;
  * Klasse:          Order
  *
  * Beschreibung:
- * JPA-Entität zur Abbildung einer Bestellung.
- * Referenziert einen Customer über dessen ID.
+ * JPA Entity für Bestellungen in order_db.
+ * Wichtig: customerId ist nur eine ID Referenz, keine JPA Beziehung zu Customer.
  *
- * Technische Details:
- * - Java 17
- * - Spring Boot 3.2.12
- * - Spring Data JPA
- * - MariaDB
+ * Database per Service, keine serviceübergreifenden Foreign Keys
  * ---------------------------------------------------------
  */
 
@@ -37,7 +33,6 @@ public class Order {
     @NotNull
     @Column(nullable = false)
     private Long customerId;
-    // Referenz auf Customer Service 
 
     @NotNull
     @Column(nullable = false)

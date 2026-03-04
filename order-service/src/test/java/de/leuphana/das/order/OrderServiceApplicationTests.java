@@ -11,13 +11,12 @@ package de.leuphana.das.order;
  * Klasse:          OrderServiceApplicationTests
  *
  * Beschreibung:
- * Integrationstest zur Demonstration der REST Kommunikation
- * zwischen Customer Service und Order Service.
+ * Integrationstest über HTTP.
+ * Der Test demonstriert den geforderten Ablauf:
+ * zuerst Customer anlegen, danach Order für diesen Customer anlegen.
  *
- * Ablauf:
- * 1) Customer per HTTP anlegen
- * 2) Order mit dieser customerId anlegen
- * 3) Prüfen, ob beide erfolgreich erstellt wurden
+ * Prüfungsanker:
+ * Integrationstest statt GUI, REST Aufrufe zwischen Services
  * ---------------------------------------------------------
  */
 
@@ -31,16 +30,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class OrderServiceApplicationTests {
 
-    // RestTemplate ermöglicht HTTP Requests innerhalb des Tests
+    // RestTemplate sendet HTTP Requests, damit der Ablauf wie bei einer echten verteilten Nutzung getestet wird
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Test
     void shouldCreateCustomerThenCreateOrderForCustomer() {
 
-        // ----------------------------
-        // 1) Customer anlegen
-        // ----------------------------
-
+        // Schritt 1: Customer per HTTP im Customer Service anlegen
         CustomerCreateRequest customerRequest =
                 new CustomerCreateRequest(
                         "Mia",
@@ -48,15 +44,12 @@ class OrderServiceApplicationTests {
                         "mia.junit." + System.currentTimeMillis() + "@leuphana.de"
                 );
 
-        // HTTP Header für JSON setzen
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Request + Header zusammenführen
         HttpEntity<CustomerCreateRequest> customerEntity =
                 new HttpEntity<>(customerRequest, headers);
 
-        // HTTP POST auf Customer Service
         ResponseEntity<CustomerResponse> customerResponse =
                 restTemplate.exchange(
                         "http://localhost:8081/customers",
@@ -65,24 +58,19 @@ class OrderServiceApplicationTests {
                         CustomerResponse.class
                 );
 
-        // Prüfen, ob der Request erfolgreich war
         assertEquals(HttpStatus.OK, customerResponse.getStatusCode());
         assertNotNull(customerResponse.getBody());
         assertNotNull(customerResponse.getBody().id);
 
         Long customerId = customerResponse.getBody().id;
 
-        // ----------------------------
-        // 2) Order anlegen
-        // ----------------------------
-
+        // Schritt 2: Order per HTTP im Order Service anlegen, Order Service validiert Customer über Feign
         OrderCreateRequest orderRequest =
                 new OrderCreateRequest(customerId, 49.99);
 
         HttpEntity<OrderCreateRequest> orderEntity =
                 new HttpEntity<>(orderRequest, headers);
 
-        // HTTP POST auf Order Service
         ResponseEntity<OrderResponse> orderResponse =
                 restTemplate.exchange(
                         "http://localhost:8082/orders",
@@ -91,15 +79,12 @@ class OrderServiceApplicationTests {
                         OrderResponse.class
                 );
 
-        // Prüfen, ob Order erfolgreich erstellt wurde
         assertEquals(HttpStatus.OK, orderResponse.getStatusCode());
         assertNotNull(orderResponse.getBody());
         assertEquals(customerId, orderResponse.getBody().customerId);
     }
 
-    // -------------------------------------------------
-    // Einfache DTO Klassen für JSON Mapping im Test
-    // -------------------------------------------------
+    // DTOs im Test sind bewusst minimal, damit der Test unabhängig von internen Klassen bleibt
 
     static class CustomerCreateRequest {
         public String firstName;
